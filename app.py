@@ -52,7 +52,7 @@ def load_data():
 st.set_page_config(page_title="NYC Taxi Dashboard", layout="wide")
 
 st.title("🚕 NYC Taxi Dashboard")
-st.markdown("Visualización dinámica de la tabla `fact_taxi_trips` con **matplotlib/seaborn**")
+st.markdown("Visualización con cambios desde gituhb dinámica de la tabla `fact_taxi_trips` con **matplotlib/seaborn**")
 
 # Cargar datos
 df = load_data()
