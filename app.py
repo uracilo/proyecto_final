@@ -49,7 +49,7 @@ def load_data():
 # ========================================
 # APP STREAMLIT
 # ========================================
-st.set_page_config(page_title="NYC Taxi Dashboard", layout="wide")
+st.set_page_config(page_title="NYC Taxi Dashboard ahora si ya quedo el cambio", layout="wide")
 
 st.title("🚕 NYC Taxi Dashboard")
 st.markdown("Visualización con cambios desde gituhb dinámica de la tabla `fact_taxi_trips` con **matplotlib/seaborn**")
