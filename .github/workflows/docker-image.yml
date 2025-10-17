@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create .env from prod secrets
+      - name: Create .env from prod secrets (DB + AWS)
         shell: bash
         run: |
           set -euo pipefail
@@ -27,6 +27,11 @@ jobs:
             echo "DB_NAME=${{ secrets.DB_NAME }}";
             echo "DB_USER=${{ secrets.DB_USER }}";
             echo "DB_PASS=${{ secrets.DB_PASS }}";
+
+            echo "AWS_REGION=${{ secrets.AWS_REGION }}";
+            echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}";
+            echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}";
+            # echo "AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}";
           } > .env
           chmod 600 .env
 
@@ -38,3 +43,10 @@ jobs:
           docker-compose up -d --build
           docker-compose ps
           docker logs --tail 50 taxi_dashboard || true
+
+      # (Opcional) Verificación rápida de credenciales dentro del contenedor
+      - name: Verify AWS identity inside container
+        shell: bash
+        run: |
+          set -e
+          docker exec taxi_dashboard aws sts get-caller-identity || (echo "AWS creds not working in container" && exit 1)
